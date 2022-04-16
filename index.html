@@ -10,17 +10,28 @@
     <script type="text/javascript" src="app.js"></script>
 </head>
 
-<body>
+<body class="body-bg" background="tertiary">
     <div class="container">
-        <div class="block-one" theme="dark"></div>
-        <div class="block-two" theme="dark"></div>
+        <div class="block-one" background="primary"></div>
+        <div class="block-two" background="secondary"></div>
+        <h1 class="primary-text" text-color="primary">Headline Text</h1>
+        <p class="secondary-text" text-color="secondary"> Mi parturient etiam adipiscing neque ad diam in
+            parturient
+            faucibus nec
+            lacinia
+            primis rhoncus nullam sit
+            pretium nam.</p>
     </div>
 
-    <div class="container">
-        <label class="switch">
-            <input id="theme-switch" type="checkbox" theme="dark">
-            <span class="slider round"></span>
-        </label>
+    <div id="theme">
+        <div class="switch-container">
+            <span class="primary-text" text-color="primary" style="margin:5px;">Dark</span>
+            <label class="switch">
+                <input id="theme-switch" type="checkbox" theme="dark">
+                <span class="slider round"></span>
+            </label>
+            <span class="primary-text" text-color="primary" style="margin:5px;">Light</span>
+        </div>
     </div>
 </body>
 

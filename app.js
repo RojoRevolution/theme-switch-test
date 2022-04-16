@@ -1,158 +1,109 @@
 document.addEventListener("DOMContentLoaded", () => {
     console.log('DOM Loaded');
 
-    const toggleSwitch = document.getElementById('theme-switch')
-    const blockOne = document.querySelector('.block-one')
-    const blockTwo = document.querySelector('.block-two')
+    const toggleSwitch = document.getElementById('theme-switch');
+    const checkBoxEl = document.getElementById('theme-switch');
+    const bgPrimary = document.querySelectorAll('[background="primary"]');
+    const bgSecondary = document.querySelectorAll('[background="secondary"]');
+    const bgTertiary = document.querySelectorAll('[background="tertiary"]');
+    const txtPrimary = document.querySelectorAll('[text-color="primary"]');
+    const txtSecondary = document.querySelectorAll('[text-color="secondary"]');
 
     // let status;
-    let switchStatus;
     let storedTheme;
 
+    // Switch to Light Theme
+    const switchToLight = () => {
+        window.localStorage.setItem("theme", JSON.stringify(1));
+        bgPrimary.forEach(backgroundPrimary => {
+            backgroundPrimary.classList.add('light-bg-1')
+        })
+        bgSecondary.forEach(backgroundSecondary => {
+            backgroundSecondary.classList.add('light-bg-2')
+        })
+        bgTertiary.forEach(backgroundTertiary => {
+            backgroundTertiary.classList.add('light-bg-3')
+        })
+        txtPrimary.forEach(textPrimary => {
+            textPrimary.classList.add('primary-text-dark')
+        })
+        txtSecondary.forEach(textSecondary => {
+            textSecondary.classList.add('secondary-text-dark')
+        })
+        toggleSwitch.setAttribute('theme', 'light');
+    }
+
+    // Switch to Light Theme
+    const switchToDark = () => {
+        window.localStorage.setItem("theme", JSON.stringify(0));
+        // blockOne.classList.remove('light-bg-1');
+        // blockTwo.classList.remove('light-bg-2');
+        bgPrimary.forEach(backgroundPrimary => {
+            backgroundPrimary.classList.remove('light-bg-1')
+        })
+        bgSecondary.forEach(backgroundSecondary => {
+            backgroundSecondary.classList.remove('light-bg-2')
+        })
+        bgTertiary.forEach(backgroundTertiary => {
+            backgroundTertiary.classList.remove('light-bg-3')
+        })
+        txtPrimary.forEach(textPrimary => {
+            textPrimary.classList.remove('primary-text-dark')
+        })
+        txtSecondary.forEach(textSecondary => {
+            textSecondary.classList.remove('secondary-text-dark')
+        })
+        toggleSwitch.setAttribute('theme', 'light')
+    }
+
+    // Check Local Storafe
     const getStatus = () => {
-        // let currentTheme = localStorage.getItem('theme')
-
         getStorage = JSON.parse(window.localStorage.getItem('theme'));
-        // getStorage = localStorage.getItem('theme')
-        // storedTheme = localStorage.getItem('theme')
-        console.log('Current Storage: ', getStorage)
-
-        // if (getStorage === null) {
-        //     console.log('SHIT IS NULL YO')
-        //     parseInt(getStorage) || 0;
-        //     console.log(getStorage)
-        // }
 
         if (getStorage === 0) {
-            console.log('SHIT IS GOOD YO')
+            console.log('Dark Theme')
         } else if (getStorage === 1) {
-            console.log('SHIT IS GOOD YO')
+            console.log('Light Theme')
+            // If Local storage is set to Light theme, add Light theme clases and activate switch
+            switchToLight();
+            checkBoxEl.checked = true;
         } else {
-            console.log('SHIT IS NULL YO')
+            // If local storage = null / none, set to dark theme
+            console.log('Dark Theme')
             getStorage = 0;
             console.log(getStorage);
         }
-        // else if (isNan(getStorage)) {
-        //     console.log('Shit IS A STRING YO')
-        //     getStorage = parseInt(getStorage);
-        //     console.log('Strinng parsed to: ', getStorage)
-        // }
 
         switch (getStorage) {
             case 0:
-                console.log('Get Storage dark')
+                // Set Global Variable to dark
                 storedTheme = 0;
-                console.log('Theme = dark')
-                console.log('=============')
                 break;
             case 1:
-                console.log('Get Storage light')
+                // Set Global variable to light
                 storedTheme = 1;
-                console.log('Theme = light')
-                console.log('=============')
                 break;
-            // case null:
-            //     console.log('Get Storage null')
-            //     storedTheme = 0;
-            //     console.log('Theme = dark')
-            //     console.log('=============')
-            //     break;
             default:
                 console.log('No local storage')
                 console.log('=============')
                 break;
         }
 
-        // console.log(toggleSwitch.getAttribute('value'))
-        // let getStorage = JSON.stringify(localStorage.getItem('theme'))
-
-
-        // let adjustedStatus = getStorage.replace(/["]+/g, '');
-        // status = adjustedStatus;
-        // console.log('Storage Status: ', status)
-        // console.log(savedStatus)
-        // let status = savedStatus;
-        // status.replace(/["]+/g, '');
-        // console.log('Status: ', status)
     }
 
+    // Check local storage on page load
     getStatus()
 
-
-    // let dummyString = 'Hello Javascript- "This language" is very popular."'
-    // let finalString = dummyString.replace(/["]+/g, '')
-    // console.log("original string: " + dummyString)
-    // console.log("final string: " + finalString)
-
-
-
-    // init();
-    // console.log(status)
-
-    // ORIGINAL LISTENER
-    // toggleSwitch.addEventListener('click', () => {
-    //     console.log('click')
-
-    //     let status = toggleSwitch.getAttribute('theme')
-    //     // switchStatus = toggleSwitch.getAttribute('theme')
-    //     // let switchStatus = status;
-    //     console.log('Switch Status', status)
-    //     console.log('Status after Click', status)
-
-    //     switch (status) {
-    //         case 'dark':
-    //             blockOne.classList.add('light-bg-1');
-    //             blockTwo.classList.add('light-bg-2');
-    //             toggleSwitch.setAttribute('theme', 'light')
-    //             localStorage.setItem("theme", 'light');
-    //             break;
-    //         case 'light':
-    //             blockOne.classList.remove('light-bg-1');
-    //             blockTwo.classList.remove('light-bg-2');
-    //             toggleSwitch.setAttribute('theme', 'dark')
-    //             localStorage.setItem("theme", 'dark');
-    //             break;
-    //         default:
-    //             console.log('Nothing happened');
-    //             break;
-    //     }
-
-    // })
-
-    const switchToLight = () => {
-        window.localStorage.setItem("theme", JSON.stringify(1));
-        // localStorage.setItem("theme", 1);
-        blockOne.classList.add('light-bg-1');
-        blockTwo.classList.add('light-bg-2');
-        toggleSwitch.setAttribute('theme', 'light');
-        console.log('Theme switched to: ', 'Light');
-        getStatus()
-    }
-
-    const switchToDark = () => {
-        window.localStorage.setItem("theme", JSON.stringify(0));
-        // localStorage.setItem("theme", 0);
-        blockOne.classList.remove('light-bg-1');
-        blockTwo.classList.remove('light-bg-2');
-        toggleSwitch.setAttribute('theme', 'light')
-        console.log('Theme switched to: ', 'Dark')
-        getStatus()
-    }
-
+    // Event Listener for Switch Toggle
     toggleSwitch.addEventListener('click', () => {
-        console.log('Theme on Click = ', storedTheme)
-        // let status = toggleSwitch.getAttribute('theme')
-        // switchStatus = toggleSwitch.getAttribute('theme')
-        // let switchStatus = status;
-        // console.log('Switch Status', status)
-        // console.log('Status after Click', status)
-
         switch (storedTheme) {
             case 0:
                 switchToLight()
+                getStatus()
                 break;
             case 1:
                 switchToDark();
+                getStatus()
                 break;
             default:
                 console.log('Nothing happened');
